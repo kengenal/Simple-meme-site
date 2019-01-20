@@ -76,8 +76,8 @@ class MemeController extends Controller
      */
     public function detail($id)
     {
-       $meme = Memes::where('id', '=', $id);
-       return view('memes.detaild', [
+       $meme = Memes::where('id', $id)->get();
+       return view('memes.detail', [
             'meme' => $meme,
        ]);
     }

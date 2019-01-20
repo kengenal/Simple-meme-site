@@ -14,15 +14,15 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-//Route::get('/', 'HomeController@startApp')->name('home');
+Route::get('/', 'HomeController@startApp')->name('home');
 Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 // Memes Routing
 Route::get('/memes', 'MemeController@show')->name('home');
+Route::get('/', 'MemeController@show');
 Route::post('/add', [
 	'uses' => 'MemeController@add',
 	'as' => 'add.memes',
 ]);
-
-Route::get('detail/{id}', 'MemeController@detail');
+Route::get('memes/detail/{id}', 'MemeController@detail');

@@ -28,7 +28,12 @@
                             <div class="row">
                         		<input type="hidden" name="_token" value="{{ csrf_token() }}">
                         		<div class="form-goup col-md-11 ">
-                        		    <input type="text" name="url" class="form-control" placeholder="Add meme">
+                                    <div class="input-group flex-nowrap">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="addon-wrapping"><i class="far fa-hdd"></i></span>
+                                    </div>
+                                    <input type="text" name="url" class="form-control" placeholder="Add meme">
+                                </div>
                                 </div>
                                 <div class="float-right">
                         		    <button class="btn btn-success float-right"><i class="fas fa-save"></i></button>
