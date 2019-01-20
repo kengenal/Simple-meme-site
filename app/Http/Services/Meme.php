@@ -17,8 +17,16 @@ class Meme
 	{
 		$result = parse_url($url);
 		$this->urlArray = $result;
-		$this->host = $result['host'];
-		$this->url = $url;
+		if (isset($result['host']))
+		{
+			$this->host = $result['host'];
+			$this->url = $url;
+		}
+		else
+		{
+			$this->errors = true;
+			return 0;
+		}
 	}
 	public function getMeme()
 	{
@@ -41,7 +49,6 @@ class Meme
 	}
 	public function download($filesystem, $name)
 	{
-		$errors;
 		try 
 		{
 			$url = $this->memes['url'];
@@ -52,7 +59,7 @@ class Meme
 		}
 		catch(Exception $e)
 		{
-			array_push($this->errors, "Meme\gif not found");
+			$this->errors = true;
 		}
 		return $this->errors;
 	}

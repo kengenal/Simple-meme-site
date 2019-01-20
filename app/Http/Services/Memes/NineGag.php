@@ -10,6 +10,7 @@ class NineGag
 	private $title;
 	private $type;
 	private $errors;
+	private $format;
 
 	public function setVariable($urlArray, $url)
 	{
@@ -25,30 +26,40 @@ class NineGag
 		{
 			$this->memUrl = $urlImg;
 			$this->type = 'img';
+			$this->format = 'jpg';
 		}
-		else
+		elseif (($file_gif || $file_gif[0] != 'HTTP/1.1 404 Not Found'))
 		{
 			$this->memUrl = $urlGif;
 			$this->type = 'gif';
+			$this->format = 'webm';
+		}
+		else
+		{
+			$this->errors = true;
 		}
 	}
 
 	public function nineParse()
 	{
-		$memeCotext = file_get_contents($this->url);
-		$dom = new \DOMDocument();
-		@$dom->loadHTML($memeCotext);
-		$this->title = explode(' - ',$dom->getElementsByTagName('title')[0]->textContent)[0];
+		if (!$this->errors)
+		{
+			$memeCotext = file_get_contents($this->url);
+			$dom = new \DOMDocument();
+			@$dom->loadHTML($memeCotext);
+			$this->title = explode(' - ',$dom->getElementsByTagName('title')[0]->textContent)[0];
+		}
 	
-
 	}
 
 	public function getMeme()
 	{
 		$meme = [
-			"title" => $this->title,
-			"url" 	=> $this->memUrl,
-			"type" 	=> $this->type,
+			"title"  => $this->title,
+			"url" 	 => $this->memUrl,
+			"type"   => $this->type,
+			"errors" => $this->errors,
+			"format" => $this->format,
 		];
 		return $meme;
 	}

@@ -8,6 +8,7 @@ class Reddit
 	private $json_api;
 	private $urlMeme;
 	private $title;
+	private $format;
 
 	public function setVariable($url)
 	{
@@ -21,6 +22,8 @@ class Reddit
 		$obj = json_decode($json, true);
 		$small_array = $obj[0]['data']['children'][0]['data'];
 		$this->urlMeme = $small_array['url'];
+		$formatArr = explode('.', $this->urlMeme);
+		$this->format = end($formatArr);
 		$this->title = $small_array['title'];
 	}
 	public function getMeme()
@@ -29,6 +32,8 @@ class Reddit
 			'title' => $this->title,
 			'url' 	=> $this->urlMeme,
 			'type'  => 'img',
+			'errors'=> false,
+			'format' => $this->format,
 		];
 
 		return $meme;
