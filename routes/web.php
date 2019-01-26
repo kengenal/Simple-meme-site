@@ -25,4 +25,4 @@ Route::post('/add', [
 	'uses' => 'MemeController@add',
 	'as' => 'add.memes',
 ]);
-Route::get('memes/detail/{id}', 'MemeController@detail');
+Route::get('memes/{id}', 'MemeController@detail');

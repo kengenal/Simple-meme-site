@@ -1,4 +1,5 @@
 <?php
+declare(ticks=1);
 
 namespace App\Http\Controllers;
 
@@ -30,6 +31,7 @@ class MemeController extends Controller
        $memes = Memes::where('home', '=', true)->orderBy('id', 'desc')->paginate(10);
        return view('memes.show', [
             'memes' => $memes,
+            'width' => 600,
        ]);
     }
 
@@ -50,6 +52,7 @@ class MemeController extends Controller
         $meme = new Meme();
         $meme->getUrl($url);
         $result = $meme->getMeme();
+        $memid = uniqid();
         if ($result && !$result['errors'])
         {
             $data = Memes::create([
@@ -58,9 +61,10 @@ class MemeController extends Controller
                'type'    => $result['type'],
                'format'  => $result['format'],
                'home'    => true,
-            ]);
+               'name'    => $memid,
+             ]);
             $id = $data->id;
-            $errors = $meme->download($filesystem, $id);
+            $errors = $meme->download($filesystem, $memid);
            
             return redirect('/memes')->with('Meme has be added');
         }
@@ -74,11 +78,12 @@ class MemeController extends Controller
      *
      * @return void
      */
-    public function detail($id)
+    public function detail(int $id)
     {
        $meme = Memes::where('id', $id)->get();
        return view('memes.detail', [
-            'meme' => $meme,
+            'memes' => $meme,
+            'width' => 800,
        ]);
     }
 }

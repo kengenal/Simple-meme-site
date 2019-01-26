@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Memes extends Model
 {
 	protected $fillable = [
-        'id', 'user_id','title', 'type'
+        'id', 'user_id','title', 'type', 'name', 'format'
     ];
 
 	public function user_id()
