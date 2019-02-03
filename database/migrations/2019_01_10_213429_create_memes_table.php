@@ -19,7 +19,7 @@ class CreateMemesTable extends Migration
             $table->string('title');
             $table->text('type');
             $table->text('format');
-            $table->boolean('home')->default(true);
+            $table->boolean('home')->default(1);
             $table->timestamps();
         });
     }
