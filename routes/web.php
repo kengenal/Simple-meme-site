@@ -14,15 +14,19 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', 'HomeController@startApp')->name('home');
+Route::get('/', 'HomeController@startApp')->middleware('auth.basic');
 Auth::routes();
-//Route::get('/home', 'HomeController@index')->name('home');
 
 // Memes Routing
-Route::get('/memes', 'MemeController@show')->name('home');
-Route::get('/', 'MemeController@show');
+Route::get('/memes', 'MemeController@memes')->name('home');
+Route::get('/home', 'MemeController@memes');
 Route::post('/add', [
-	'uses' => 'MemeController@add',
-	'as' => 'add.memes',
+	'uses' => 'MemeController@addUrl',
+	'as' => 'url.memes',
 ]);
+Route::post('/add-files', [
+	'uses' => 'MemeController@addFile',
+	'as' => 'files.memes',
+]);
+
 Route::get('memes/{id}', 'MemeController@detail');

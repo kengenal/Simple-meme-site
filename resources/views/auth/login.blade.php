@@ -8,13 +8,21 @@
                 <div class="avatar">
                     <img src="{{URL::asset('img/avatar.png')}}" alt="Avatar" height="70" width="70">
                 </div>
-
+                    
                 <div class="card-body"ano.png>
                     <form method="POST" action="{{ route('login') }}" class="bg-kenons pt-5">
                         @csrf
-
+                        @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+                        @if ($errors->has('password'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
                         <div class="form-group row">
-                            <!--<label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label> -->
 
                             <div class="col-md-12">
                                
@@ -24,16 +32,10 @@
                                     </div>
                                      <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('E-Mail Address') }}" name="email" value="{{ old('email') }}" required autofocus>
                                 </div>
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <!--<label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>-->
                             <div class="col-md-12">
                                  <div class="input-group flex-nowrap center-block">
                                     <div class="input-group-prepend">
@@ -41,11 +43,6 @@
                                     </div>
                                     <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" name="password" required>
                                 </div>
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
 
