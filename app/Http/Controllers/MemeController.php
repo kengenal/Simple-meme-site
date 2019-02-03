@@ -53,11 +53,12 @@ class MemeController extends Controller
         $meme = new Meme();
         $meme->getUrl($url);
         $result = $meme->getMeme();
+        $storage =  Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
         $memid = uniqid();
         if ($result && !$result['errors'])
         {
             $folder = $result['type'];
-            $filesystem = public_path("img/memes/{$folder}");
+            $filesystem = "{$storage}/memes/{$folder}";
             $data = Memes::create([
                'user_id' => Auth::id(),
                'title'   => $result['title'],
