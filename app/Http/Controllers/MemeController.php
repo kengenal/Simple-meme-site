@@ -127,7 +127,7 @@ class MemeController extends Controller
                 'title'   => $title,
                 'type'    => $type,
                 'format'  => $file_type,
-                'home'    => false,
+                'home'    => $show_home,
                 'name'    => $meme_id,
             ]);
             return redirect('/memes')->with('Meme has be uploaded');
