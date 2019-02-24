@@ -1,6 +1,6 @@
 @foreach ($memes as $mem)
     <div class="card bg-kenons pb-2 m-3">
-        @if (auth()->user()->staff)
+        @if (Auth::check() && Auth::user()->staff == true)
             <button type="button" class="btn text-right pb-0" aria-label="Remove from home">
                 <i class="fas fa-times-circle"></i>
             </button>
@@ -19,9 +19,11 @@
         </div>
         <div class="container">
             <div class="text-center">
-                <button class="btn btn-primary m-2">
-                    <i class="fas fa-save"></i>
-                </button>
+                @if (Auth::check())
+                    <button class="btn btn-primary m-2">
+                        <i class="fas fa-save"></i>
+                    </button>
+                @endif
                 <a class="btn btn-primary m-2" href="{{asset('storage/memes').'/'.$mem->type.'/'.$mem->name.'.'.$mem->format}}" download="{{ str_replace(' ', '_', $mem->title).'.'.$mem->format }}">
                     <i class="fas fa-cloud-download-alt"></i>
                 </a>
